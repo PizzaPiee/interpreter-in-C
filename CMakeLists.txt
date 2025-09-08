@@ -31,7 +31,6 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/lib/sds/sds.h")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
-add_library(sds lib/sds/sds.h lib/sds/sdsalloc.h lib/sds/sds.c)
-
-add_executable(main src/main.c)
-target_link_libraries(main PRIVATE sds)
+add_subdirectory(apps)
+add_subdirectory(lib)
+add_subdirectory(src)
