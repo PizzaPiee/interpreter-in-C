@@ -1,4 +1,4 @@
-add_executable(main main.c)
+add_executable(repl repl.c)
 
-target_compile_options(main PRIVATE -fPIC)
-target_link_libraries(main PRIVATE sds tokens)
+target_compile_options(repl PRIVATE -fPIC)
+target_link_libraries(repl PRIVATE sds tokens)
