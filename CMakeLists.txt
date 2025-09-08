@@ -33,5 +33,5 @@ endif()
 
 add_library(sds lib/sds/sds.h lib/sds/sdsalloc.h lib/sds/sds.c)
 
-add_executable(main main.c)
-target_link_libraries(main PUBLIC sds)
+add_executable(main src/main.c)
+target_link_libraries(main PRIVATE sds)
