@@ -6,39 +6,39 @@ typedef enum {
 	TOKEN_EOF = 0,
 	TOKEN_ILLEGAL,
 
-	IDENT,
-	INT,
-	STRING,
+	TOKEN_IDENT,
+	TOKEN_INT,
+	TOKEN_STRING,
 
-	ASSIGN,
-	PLUS,
-	MINUS,
-	ASTERISK,
-	SLASH,
-	BANG,
+	TOKEN_ASSIGN,
+	TOKEN_PLUS,
+	TOKEN_MINUS,
+	TOKEN_ASTERISK,
+	TOKEN_SLASH,
+	TOKEN_BANG,
 
-	SEMICOLON,
-	COMMA,
+	TOKEN_SEMICOLON,
+	TOKEN_COMMA,
 
-	LBRACE,
-	RBRACE,
-	LPAREN,
-	RPAREN,
+	TOKEN_LBRACE,
+	TOKEN_RBRACE,
+	TOKEN_LPAREN,
+	TOKEN_RPAREN,
 
-	EQ,
-	NEQ,
-	GT,
-	GTEQ,
-	LT,
-	LTEQ,
+	TOKEN_EQ,
+	TOKEN_NEQ,
+	TOKEN_GT,
+	TOKEN_GTEQ,
+	TOKEN_LT,
+	TOKEN_LTEQ,
 
-	LET,
-	RETURN,
-	IF,
-	ELSE,
-	FUNCTION,
-	TRUE,
-	FALSE,
+	TOKEN_LET,
+	TOKEN_RETURN,
+	TOKEN_IF,
+	TOKEN_ELSE,
+	TOKEN_FUNCTION,
+	TOKEN_TRUE,
+	TOKEN_FALSE,
 } TokenType;
 
 typedef struct {
@@ -47,3 +47,4 @@ typedef struct {
 } Token ;
 
 const char* TokenTypeToString(TokenType type);
+Token NewToken(TokenType type, sds literal);

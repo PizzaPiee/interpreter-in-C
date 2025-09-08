@@ -1,4 +1,4 @@
 root = true
 
-[*.c]
+[*.{c,h}]
 indent_size = 2

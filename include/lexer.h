@@ -1,0 +1,14 @@
+#include "../lib/sds/sds.h"
+
+typedef struct {
+	sds Text;
+	int Pos;
+	int ReadPos;
+	char c;
+} Lexer;
+
+Lexer NewLexer(sds text);
+void LexerReadChar(Lexer* l);
+char LexerPeekChar(Lexer* l);
+
+static void SkipWhitespace(Lexer *l);

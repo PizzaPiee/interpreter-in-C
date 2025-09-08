@@ -1,15 +1,25 @@
 #include <stdio.h>
+#include <stdbool.h>
+
 #include "../lib/sds/sds.h"
+#include "../include/lexer.h"
 #include "../include/tokens.h"
 
 int main() {
-	sds welcome_msg = sdsnew("Hello, World!");
+	Lexer lexer = NewLexer(sdsnew("Hello, World!"));
 
-	printf("%s\n", welcome_msg);
-	sdsfree(welcome_msg);
+	Token t;
+	while (true) {
+		sds n = sdsempty();
 
-	TokenType v = TOKEN_EOF;
-	printf("%s\n", TokenTypeToString(v));
+		printf(">> ");
+		scanf("%s", n);
+
+		do {
+			
+		} while (t.Type != TOKEN_ILLEGAL || t.Type != TOKEN_EOF);
+
+	}
 
 	return 0;
 }
