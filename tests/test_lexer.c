@@ -2,21 +2,59 @@
 #include "../lib/sds/sds.h"
 #include "../src/lexer.c"
 #include "tokens.h"
-#include <stdio.h>
 
 void setUp(void) {}
 
 void tearDown(void) {}
 
 void test_Lexer_NextToken(void) {
-  sds input = sdsnew("+=-{}");
+  sds input = sdsnew(
+    "+   ()\n-*/!\t{\r}"
+    "10"
+  );
   Lexer lexer = NewLexer(input);
 
   Token t;
-  t = NextToken(&lexer);
 
-  printf("%s\n", TokenTypeToString(t.Type));
+  t = NextToken(&lexer);
   TEST_ASSERT_EQUAL_STRING(sdsnew("+"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("+"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("("), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("("), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew(")"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew(")"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("-"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("-"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("*"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("*"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("/"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("/"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("!"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("!"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("{"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("{"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("}"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("}"), t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING(sdsnew("INT"), TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(sdsnew("10"), t.Literal);
 }
 
 int main(void) {

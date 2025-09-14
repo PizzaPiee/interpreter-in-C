@@ -1,6 +1,6 @@
 #include "../include/tokens.h"
 
-Token NewToken(TokenType type, sds literal) {
+Token NewToken(TokenType type, char* literal) {
   Token t = {.Type=type, .Literal=literal};
   return t;
 }
@@ -43,5 +43,7 @@ const char* TokenTypeToString(TokenType type) {
     case TOKEN_FUNCTION: return "FUNCTION";
     case TOKEN_TRUE: return "TRUE";
     case TOKEN_FALSE: return "FALSE";
+
+    default: return "UNEXPECTED_TOKEN";
     }
 }

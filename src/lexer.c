@@ -1,7 +1,7 @@
+#include <stdbool.h>
 #include "../lib/sds/sds.h"
 #include "../include/lexer.h"
 #include "../include/tokens.h"
-#include <stdio.h>
 
 Lexer NewLexer(sds text) {
   Lexer l = { .Text=text };
@@ -15,37 +15,39 @@ Token NextToken(Lexer* l) {
 
   switch (l->c) {
     case 0:
-      t = NewToken(TOKEN_ILLEGAL, sdsempty());
+      t = NewToken(TOKEN_ILLEGAL, "");
       break;
     case '+':
-      t = NewToken(TOKEN_PLUS, sdsnew("+"));
+      t = NewToken(TOKEN_PLUS, "+");
       break;
     case '-':
-      t = NewToken(TOKEN_MINUS, sdsnew("-"));
+      t = NewToken(TOKEN_MINUS, "-");
       break;
     case '*':
-      t = NewToken(TOKEN_ASTERISK, sdsnew("*"));
+      t = NewToken(TOKEN_ASTERISK, "*");
       break;
     case '/':
-      t = NewToken(TOKEN_SLASH, sdsnew("/"));
+      t = NewToken(TOKEN_SLASH, "/");
       break;
     case '!':
-      t = NewToken(TOKEN_BANG, sdsnew("!"));
+      t = NewToken(TOKEN_BANG, "!");
       break;
     case '{':
-      t = NewToken(TOKEN_LBRACE, sdsnew("{"));
+      t = NewToken(TOKEN_LBRACE, "{");
       break;
     case '}':
-      t = NewToken(TOKEN_RBRACE, sdsnew("}"));
+      t = NewToken(TOKEN_RBRACE, "}");
       break;
     case '(':
-      t = NewToken(TOKEN_LPAREN, sdsnew("("));
+      t = NewToken(TOKEN_LPAREN, "(");
       break;
     case ')':
-      t = NewToken(TOKEN_RPAREN, sdsnew(")"));
+      t = NewToken(TOKEN_RPAREN, ")");
       break;
     default:
-      t = NewToken(TOKEN_ILLEGAL, sdsempty());
+      if (IsDigit(l->c)) {
+        t = NewToken(TOKEN_INT, ReadInteger(l));
+      }
       break;
   }
 
@@ -76,4 +78,23 @@ static void SkipWhitespace(Lexer *l) {
   while (l->c == ' ' || l->c == '\t' || l->c == '\n' || l->c == '\r') {
     LexerReadChar(l);
   }
+}
+
+static bool IsDigit(char c) {
+  if (c >= '0' && c <= '9') {
+    return true;
+  }
+
+  return false;
+}
+
+static char* ReadInteger(Lexer* l) {
+  char* integer = sdsempty();
+
+  while (IsDigit(l->c)) {
+    integer = sdscat(integer, &l->c);
+    LexerReadChar(l);
+  }
+
+  return integer;
 }
