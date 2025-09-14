@@ -2,3 +2,4 @@ root = true
 
 [*.{c,h}]
 indent_size = 2
+
