@@ -42,7 +42,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
     add_subdirectory(tests)
 endif()
 
-add_compile_options(--std=c23)
+add_compile_options(--std=c23 -ggdb3)
 
 add_subdirectory(apps)
 add_subdirectory(lib)

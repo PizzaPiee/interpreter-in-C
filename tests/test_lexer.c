@@ -17,44 +17,47 @@ void test_Lexer_NextToken(void) {
   Token t;
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("+"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("+"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("+", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("+", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("("), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("("), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("(", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("(", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew(")"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew(")"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING(")", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING(")", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("-"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("-"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("-", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("-", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("*"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("*"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("*", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("*", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("/"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("/"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("/", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("/", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("!"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("!"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("!", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("!", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("{"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("{"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("{", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("{", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("}"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("}"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("}", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("}", t.Literal);
 
   t = NextToken(&lexer);
-  TEST_ASSERT_EQUAL_STRING(sdsnew("INT"), TokenTypeToString(t.Type));
-  TEST_ASSERT_EQUAL_STRING(sdsnew("10"), t.Literal);
+  TEST_ASSERT_EQUAL_STRING("INT", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("10", t.Literal);
+  sdsfree(t.Literal);
+
+  sdsfree(input);
 }
 
 int main(void) {

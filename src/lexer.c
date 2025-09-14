@@ -3,7 +3,7 @@
 #include "../include/lexer.h"
 #include "../include/tokens.h"
 
-Lexer NewLexer(sds text) {
+Lexer NewLexer(char* text) {
   Lexer l = { .Text=text };
   LexerReadChar(&l);
   return l;
