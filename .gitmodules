@@ -1,3 +1,6 @@
 [submodule "lib/sds"]
 	path = lib/sds
 	url = https://github.com/antirez/sds.git
+[submodule "lib/unity"]
+	path = lib/unity
+	url = https://github.com/ThrowTheSwitch/Unity.git

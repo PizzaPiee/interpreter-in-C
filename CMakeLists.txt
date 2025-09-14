@@ -10,6 +10,10 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/bin")
 	make_directory("${PROJECT_SOURCE_DIR}/bin")
 endif()
 
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(CTest)
+endif()
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
@@ -32,6 +36,10 @@ endif()
 
 if(NOT EXISTS "${PROJECT_SOURCE_DIR}/lib/sds/sds.h")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+endif()
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+    add_subdirectory(tests)
 endif()
 
 add_compile_options(--std=c23)

@@ -24,15 +24,15 @@ Token NextToken(Lexer* l) {
     case '/':
       t = NewToken(TOKEN_SLASH, sdsnew("/"));
     case '!':
-      t = NewToken(TOKEN_BANG, "!");
+      t = NewToken(TOKEN_BANG, sdsnew("!"));
     case '{':
-      t = NewToken(TOKEN_LBRACE, "{");
+      t = NewToken(TOKEN_LBRACE, sdsnew("{"));
     case '}':
-      t = NewToken(TOKEN_RBRACE, "}");
+      t = NewToken(TOKEN_RBRACE, sdsnew("}"));
     case '(':
-      t = NewToken(TOKEN_LPAREN, "(");
+      t = NewToken(TOKEN_LPAREN, sdsnew("("));
     case ')':
-      t = NewToken(TOKEN_RPAREN, ")");
+      t = NewToken(TOKEN_RPAREN, sdsnew(")"));
     default:
       t = NewToken(TOKEN_ILLEGAL, sdsempty());
   }
