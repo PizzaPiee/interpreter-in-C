@@ -1,6 +1,7 @@
 #include "../lib/sds/sds.h"
 #include "../include/lexer.h"
 #include "../include/tokens.h"
+#include <stdio.h>
 
 Lexer NewLexer(sds text) {
   Lexer l = { .Text=text };
@@ -15,26 +16,37 @@ Token NextToken(Lexer* l) {
   switch (l->c) {
     case 0:
       t = NewToken(TOKEN_ILLEGAL, sdsempty());
+      break;
     case '+':
       t = NewToken(TOKEN_PLUS, sdsnew("+"));
+      break;
     case '-':
       t = NewToken(TOKEN_MINUS, sdsnew("-"));
+      break;
     case '*':
       t = NewToken(TOKEN_ASTERISK, sdsnew("*"));
+      break;
     case '/':
       t = NewToken(TOKEN_SLASH, sdsnew("/"));
+      break;
     case '!':
       t = NewToken(TOKEN_BANG, sdsnew("!"));
+      break;
     case '{':
       t = NewToken(TOKEN_LBRACE, sdsnew("{"));
+      break;
     case '}':
       t = NewToken(TOKEN_RBRACE, sdsnew("}"));
+      break;
     case '(':
       t = NewToken(TOKEN_LPAREN, sdsnew("("));
+      break;
     case ')':
       t = NewToken(TOKEN_RPAREN, sdsnew(")"));
+      break;
     default:
       t = NewToken(TOKEN_ILLEGAL, sdsempty());
+      break;
   }
 
   LexerReadChar(l);
