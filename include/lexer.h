@@ -14,3 +14,5 @@ char LexerPeekChar(Lexer* l);
 static void SkipWhitespace(Lexer *l);
 static bool IsDigit(char c);
 static char* ReadInteger(Lexer* l);
+static bool IsLetter(char c);
+static char* ReadText(Lexer* l);

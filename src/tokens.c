@@ -1,4 +1,5 @@
 #include "../include/tokens.h"
+#include "../lib/sds/sds.h"
 
 Token NewToken(TokenType type, char* literal) {
   Token t = {.Type=type, .Literal=literal};
@@ -46,4 +47,29 @@ const char* TokenTypeToString(TokenType type) {
 
     default: return "UNEXPECTED_TOKEN";
     }
+}
+
+TokenType LookupKeyword(char* text) {
+  typedef struct Map {
+    char* key;
+    TokenType value;
+  } Map;
+
+  Map stringTokenType[7] = {
+    {"let", TOKEN_LET},
+    {"return", TOKEN_RETURN},
+    {"if", TOKEN_IF},
+    {"else", TOKEN_ELSE},
+    {"function", TOKEN_FUNCTION},
+    {"true", TOKEN_TRUE},
+    {"false", TOKEN_FALSE},
+  };
+
+  for (int i=0; i < 7; i++) {
+    if (sdscmp(text, stringTokenType[i].key) == 0) {
+      return stringTokenType[i].value;
+    }
+  }
+
+  return TOKEN_ILLEGAL;
 }

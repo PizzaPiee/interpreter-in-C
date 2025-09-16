@@ -48,3 +48,4 @@ typedef struct {
 
 const char* TokenTypeToString(TokenType type);
 Token NewToken(TokenType type, sds literal);
+TokenType LookupKeyword(char* text);

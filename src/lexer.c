@@ -47,8 +47,16 @@ Token NextToken(Lexer* l) {
     default:
       if (IsDigit(l->c)) {
         t = NewToken(TOKEN_INT, ReadInteger(l));
+      } else if (IsLetter(l->c)) {
+        // Read the string and check if it is an identifier or a keyword
+        char* text = ReadText(l);
+        t = NewToken(LookupKeyword(text), text);
+        if (t.Type == TOKEN_ILLEGAL) {
+          t.Type = TOKEN_IDENT;
+        }
       }
-      break;
+
+      return t;
   }
 
   LexerReadChar(l);
@@ -86,6 +94,24 @@ static bool IsDigit(char c) {
   }
 
   return false;
+}
+
+static bool IsLetter(char c) {
+  if (c >= 'a' && c <= 'z') {
+    return true;
+  }
+  return false;
+}
+
+static char* ReadText(Lexer* l) {
+  char* text = sdsempty();
+
+  while (IsLetter(l->c)) {
+    text = sdscat(text, &l->c);
+    LexerReadChar(l);
+  }
+
+  return text;
 }
 
 static char* ReadInteger(Lexer* l) {

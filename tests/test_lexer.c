@@ -11,6 +11,7 @@ void test_Lexer_NextToken(void) {
   sds input = sdsnew(
     "+   ()\n-*/!\t{\r}"
     "10"
+    "ciao false"
   );
   Lexer lexer = NewLexer(input);
 
@@ -55,6 +56,11 @@ void test_Lexer_NextToken(void) {
   t = NextToken(&lexer);
   TEST_ASSERT_EQUAL_STRING("INT", TokenTypeToString(t.Type));
   TEST_ASSERT_EQUAL_STRING("10", t.Literal);
+  sdsfree(t.Literal);
+
+  t = NextToken(&lexer);
+  TEST_ASSERT_EQUAL_STRING("IDENT", TokenTypeToString(t.Type));
+  TEST_ASSERT_EQUAL_STRING("ciao", t.Literal);
   sdsfree(t.Literal);
 
   sdsfree(input);
